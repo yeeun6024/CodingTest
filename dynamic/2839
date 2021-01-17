@@ -1,18 +1,19 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(string[] args){    // string > String  오타
-        Scanner s = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
         int n = s.nextInt();
         int total = 0;
         
         while(true){
-            if(n<3) {
-                total = -1;
+            if(n % 5 ==0) {
+                total += n / 5;
                 break;
             }
-            else if(n % 5 ==0) {
-                total += n / 5;
+            else if(n<3) {
+                total = -1;
                 break;
             }
             else {
@@ -23,5 +24,6 @@ public class Main {
         
         System.out.println(total);
         
-    }
+	}
+
 }
