@@ -5,9 +5,10 @@ public class Main {
 	
 	static int n;
 	static ArrayList<Node>[] list;
-	static int leftMax = 0;
-	static int rightMax = 0;
-
+	static boolean[] visited;
+	static int max = 0;
+	static int maxIdx = 0;
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -15,7 +16,7 @@ public class Main {
 		n = Integer.parseInt(br.readLine());
 		list = new ArrayList[n+1];
 		
-		for(int i=1; i<=n; i++) {
+		for(int i=0; i<=n; i++) {
 			list[i] = new ArrayList<>();
 		}
 		
@@ -26,58 +27,39 @@ public class Main {
 			int weight = Integer.parseInt(st.nextToken());
 			
 			list[start].add(new Node(end, weight));
+			list[end].add(new Node(start,weight));
 		}
 		
-		int max = 0;
-		boolean left = true;
+		visited = new boolean[n+1];
+		visited[1] = true;
+		dfs(1,0);
 		
-		for(int i=1; i<=n; i++) {
-			if(list[i].size()==0) continue;
-			
-			int sum = 0;
-			leftMax = rightMax = 0;
-			for(Node n : list[i]) {
-				sum += n.weight;
-				dfs(n,0,left);
-				
-				if(left) left = false;
-				else left = true;
-			}
-			
-			sum += leftMax + rightMax;
-			max = Math.max(max, sum);
-		}
-
+		visited = new boolean[n+1];
+		visited[maxIdx] = true;
+		dfs(maxIdx,0);
 		System.out.println(max);
+		
 	}
 	
-
-	
-	static void dfs(Node node, int sum, boolean left) {
-		if(list[node.next].size()==0) {
-			if(left) {
-				leftMax = Math.max(leftMax, sum);
-			}
-			else {
-				rightMax = Math.max(rightMax, sum);
-			}
-			
-			return;
+	static void dfs(int index, int cnt) {
+		if(max < cnt) {
+			max = cnt;
+			maxIdx = index;
 		}
 		
-		for(Node n : list[node.next]) {
-			sum += n.weight;
-			dfs(n,sum,left);
-			sum -= n.weight;
+		for(Node n : list[index]) {
+			if(!visited[n.index]) {
+				visited[n.index] = true;
+				dfs(n.index, cnt+n.weight);
+			}
 		}
-				
 	}
 	
 	static class Node {
-		int next, weight;
+		int index, weight;
 		
-		Node(int next, int weight) {
-			this.next = next;
+		Node(int index, int weight) {
+			this.index = index;
 			this.weight = weight;
 		}
 	}
