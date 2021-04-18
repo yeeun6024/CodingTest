@@ -1,6 +1,5 @@
-/* 실패 */
-
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
 	
@@ -11,40 +10,36 @@ public class Main {
 		sb = new StringBuilder();
 		
 		int t = Integer.parseInt(br.readLine());
-		for(int i=0; i<t; i++) {
+		
+		while(t>0) {
 			int n = Integer.parseInt(br.readLine());
-			String[] list = new String[n];
-			for(int j=0; j<n; j++) {
-				list[j] = br.readLine();
+			String[] array = new String[n];
+			boolean check = false;
+			for(int i=0; i<n; i++) {
+				array[i] = br.readLine();
 			}
-			check(list);
+			
+			Arrays.sort(array);
+			
+			for(int i=0; i<n-1; i++) {
+				String cur = array[i];
+				String next = array[i+1];
+				
+				if(cur.length() < next.length()) {
+					if(next.indexOf(cur)==0) { // startWith 써도 가능
+						check = true;
+						break;
+					}
+				}
+			}
+			
+			if(check) sb.append("NO\n");
+			else sb.append("YES\n");
+			t--;
 		}
 		
 		System.out.println(sb);
 
-	}
-	
-	static void check(String[] list) {
-		
-		for(int i=0; i<list.length-1; i++) {
-			for(int j=i+1; j<list.length; j++) {
-				if(list[i].length() < list[j].length()) {
-					if(list[j].substring(0, list[i].length()).equals(list[i])) {
-						sb.append("NO\n");
-						return;
-					}
-				}
-				else {
-					if(list[i].substring(0, list[j].length()).equals(list[j])) {
-						sb.append("NO\n");
-						return;
-					}
-				}
-			}
-		}
-		
-		sb.append("YES\n");
-		
 	}
 
 }
