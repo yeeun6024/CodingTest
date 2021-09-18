@@ -2,7 +2,7 @@
 // 단어변환
 // https://programmers.co.kr/learn/courses/30/lessons/43163?language=python3#
   
-// 210917
+// 21/09/17
 
 answer = 50
 
