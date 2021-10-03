@@ -2,6 +2,8 @@
 # 더 맵게
 # https://programmers.co.kr/learn/courses/30/lessons/42626?language=python3
 
+# 21/10/03
+
 import heapq
 
 def solution(scoville, K):
