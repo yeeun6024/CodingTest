@@ -13,4 +13,4 @@ for i in range(n):
 num.sort()  # sort()는 O(nlogn)
 
 for i in num:
-    print(i)
+    sys.stdout.write(str(i)+'\n') # 출력도
